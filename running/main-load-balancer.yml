@@ -1,0 +1,14 @@
+---
+# This is our main load balancer. It's set up to just send all traffic to Ambassador, our ingress controller, for
+# routing.
+apiVersion: v1
+kind: Service
+metadata:
+  name: ambassador
+spec:
+  type: LoadBalancer
+  externalTrafficPolicy: Local
+  ports:
+   - port: 80
+  selector:
+    service: ambassador
