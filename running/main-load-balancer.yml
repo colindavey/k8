@@ -8,6 +8,8 @@ metadata:
 spec:
   type: LoadBalancer
   externalTrafficPolicy: Local
+  # This ip was specifically reserved in GCP for the main mvp studio k8 cluster
+  # If this resource gets deleted and re-created this should ensure it comes back with the same static ip
   loadBalancerIP: 35.233.220.107
   ports:
    - port: 80
