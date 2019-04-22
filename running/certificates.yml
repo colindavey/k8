@@ -5,20 +5,20 @@ metadata:
   name: mvpstudio.org
   namespace: default
 spec:
-  secretName: mvpstudio-certification
+  secretName: mvpstudio-www-certification
   commonName: mvpstudio.org
   issuerRef:
     name: letsencrypt-prod
   dnsNames:
   - mvpstudio.org
-  - '*.mvpstudio.org'
+  - www.mvpstudio.org
   acme:
     config:
     - dns01:
         provider: prod-clouddns
       domains:
       - mvpstudio.org
-      - '*.mvpstudio.org'
+      - www.mvpstudio.org
 
 ---
 apiVersion: certmanager.k8s.io/v1alpha1
@@ -41,3 +41,45 @@ spec:
       domains:
       - emeraldcitizen.org
       - test.emeraldcitizen.org
+
+---
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Certificate
+metadata:
+  name: stage-apps
+  namespace: default
+spec:
+  secretName: stage-apps-cert
+  commonName: '*.stage.apps.mvpstudio.org'
+  issuerRef:
+    name: letsencrypt-prod
+  dnsNames:
+  - stage.apps.mvpstudio.org
+  acme:
+    config:
+    - dns01:
+        provider: prod-clouddns
+      domains:
+      - stage.apps.mvpstudio.org
+      - '*.stage.apps.mvpstudio.org'
+
+---
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Certificate
+metadata:
+  name: prod-apps
+  namespace: default
+spec:
+  secretName: prod-apps-cert
+  commonName: '*.prod.apps.mvpstudio.org'
+  issuerRef:
+    name: letsencrypt-prod
+  dnsNames:
+  - prod.apps.mvpstudio.org
+  acme:
+    config:
+    - dns01:
+        provider: prod-clouddns
+      domains:
+      - prod.apps.mvpstudio.org
+      - '*.prod.apps.mvpstudio.org'
