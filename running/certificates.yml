@@ -1,5 +1,5 @@
 ---
-apiVersion: certmanager.k8s.io/v1alpha1
+apiVersion: cert-manager.io/v1alpha2
 kind: Certificate
 metadata:
   name: mvpstudio.org
@@ -8,20 +8,13 @@ spec:
   secretName: mvpstudio-www-certification
   commonName: mvpstudio.org
   issuerRef:
-    name: letsencrypt-prod
+    name: ambassador-certs
   dnsNames:
-  - mvpstudio.org
-  - www.mvpstudio.org
-  acme:
-    config:
-    - dns01:
-        provider: prod-clouddns
-      domains:
-      - mvpstudio.org
-      - www.mvpstudio.org
+    - mvpstudio.org
+    - www.mvpstudio.org
 
 ---
-apiVersion: certmanager.k8s.io/v1alpha1
+apiVersion: cert-manager.io/v1alpha2
 kind: Certificate
 metadata:
   name: emeraldcitizen.org
@@ -30,56 +23,37 @@ spec:
   secretName: emerald-citizen-certification
   commonName: emeraldcitizen.org
   issuerRef:
-    name: letsencrypt-prod
+    name: ambassador-certs
   dnsNames:
-  - emeraldcitizen.org
-  - test.emeraldcitizen.org
-  acme:
-    config:
-    - dns01:
-        provider: prod-clouddns
-      domains:
-      - emeraldcitizen.org
-      - test.emeraldcitizen.org
+    - emeraldcitizen.org
+    - test.emeraldcitizen.org
 
 ---
-apiVersion: certmanager.k8s.io/v1alpha1
+apiVersion: cert-manager.io/v1alpha2
 kind: Certificate
 metadata:
   name: stage-apps
   namespace: default
 spec:
   secretName: stage-apps-cert
-  commonName: '*.stage.apps.mvpstudio.org'
+  commonName: "*.stage.apps.mvpstudio.org"
   issuerRef:
-    name: letsencrypt-prod
+    name: ambassador-certs
   dnsNames:
-  - stage.apps.mvpstudio.org
-  acme:
-    config:
-    - dns01:
-        provider: prod-clouddns
-      domains:
-      - stage.apps.mvpstudio.org
-      - '*.stage.apps.mvpstudio.org'
+    - "*.stage.apps.mvpstudio.org"
+    - stage.apps.mvpstudio.org
 
 ---
-apiVersion: certmanager.k8s.io/v1alpha1
+apiVersion: cert-manager.io/v1alpha2
 kind: Certificate
 metadata:
   name: prod-apps
   namespace: default
 spec:
   secretName: prod-apps-cert
-  commonName: '*.prod.apps.mvpstudio.org'
+  commonName: "*.prod.apps.mvpstudio.org"
   issuerRef:
-    name: letsencrypt-prod
+    name: ambassador-certs
   dnsNames:
-  - prod.apps.mvpstudio.org
-  acme:
-    config:
-    - dns01:
-        provider: prod-clouddns
-      domains:
-      - prod.apps.mvpstudio.org
-      - '*.prod.apps.mvpstudio.org'
+    - "*.prod.apps.mvpstudio.org"
+    - prod.apps.mvpstudio.org
