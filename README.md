@@ -8,7 +8,7 @@ provision a cluster to work with the rest of the MVP Studio system.
 
 The master node is also running the main rancher container:
 ```
-https://172.19.250.20:8443/
+https://172.19.250.22:8443/
 ```
 
 ## Directories
@@ -40,8 +40,8 @@ in the `boostrap` directory followed by `kubectl apply -f .` in the `running` di
 
 
 #### Node ips
-172.19.250.20 (master)
-172.19.250.22
+172.19.250.20
+172.19.250.22 (master)
 172.19.250.24
 172.19.250.26
 
@@ -138,6 +138,8 @@ sudo update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy
 ```
 
 #### Install rancher on the master node
+
+Rancher uses its own etcd database for storage, we are volume mounting `/var/lib/rancher` to `/opt/rancher` on the host to persist that database.
 
 ```
 docker run -d --name rancher --restart=unless-stopped -v /opt/rancher:/var/lib/rancher -p 8080:80 -p 8443:443 rancher/rancher
