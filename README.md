@@ -1,10 +1,13 @@
 # Overview
 
-We're running all MVP Studio projects in Kubernetes on [Rancher](https://rancher.com/docs/rancher/v2.x/en/overview/). This
-repository contains non-project specific configuration scripts, Kubernetes configuration files, etc. that allow you to
-provision a cluster to work with the rest of the MVP Studio system.
+We're running all MVP Studio projects in Kubernetes on [Rancher](https://rancher.com/docs/rancher/v2.x/en/overview/).
+This repository contains non-project specific configuration scripts, Kubernetes configuration files, etc. that allow you
+to provision a cluster to work with the rest of the MVP Studio system.
 
 ## Accessing Rancher
+
+In order to access the cluster you must first VPN into the Continu cluster. See the [VPN_README.md](./VPN_README.md) in
+this directory for details. Assuming you have a running VPN connection then you can connect to the master node.
 
 The master node is also running the main rancher container:
 ```
@@ -128,7 +131,7 @@ sudo apt-get install -y docker-ce docker-ce-cli containerd.io
 
 #### Set iptables to legacy mode
 
-This is due to debuian buster using iptables v1.8.x which uses nftables as the underlying implementation, and kubernetes is not currently compatible with nftables.
+This is due to debian buster using iptables v1.8.x which uses nftables as the underlying implementation, and kubernetes is not currently compatible with nftables.
 
 [See this issue](https://github.com/kubernetes/kubernetes/issues/71305)
 
