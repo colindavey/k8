@@ -1,0 +1,23 @@
+---
+# This is our main load balancer. It's set up to just send all traffic to Ambassador, our ingress controller, for
+# routing.
+apiVersion: v1
+kind: Service
+metadata:
+  name: ambassador-public
+  namespace: ambassador
+spec:
+  type: NodePort
+  ports:
+    - name: http
+      port: 80
+      targetPort: 8080
+      nodePort: 30036
+      protocol: TCP
+    - name: https
+      port: 443
+      targetPort: 8443
+      nodePort: 30037
+      protocol: TCP
+  selector:
+    service: ambassador
