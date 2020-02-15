@@ -50,3 +50,9 @@ nmcli connection import type openvpn file <your .ovpn file>
 If you then open any Network Manager gui you should see your new VPN connection.  Since authorization to Continu is a
 mix of keys/certificates and username/password you must then also provide your username and password. If using a GUI
 like `nm-connection-editor` or a tray applet you simply open the configuration and add your username and password.
+
+## OSX
+
+[Tunnelblick](https://tunnelblick.net/) seems to work well on OSX.
+
+TODO: can someone who's set up the VPN via Tunnelblick provide some details??
