@@ -4,12 +4,15 @@ We're running all MVP Studio projects in Kubernetes on [Rancher](https://rancher
 repository contains non-project specific configuration scripts, Kubernetes configuration files, etc. that allow you to
 provision a cluster to work with the rest of the MVP Studio system.
 
-## Accessing Rancher
+## Accessing Rancher and Setting up Kubectl
 
 The master node is also running the main rancher container:
 ```
 https://172.19.250.22:8443/
 ```
+
+The credentials to access Rancher can be found in the standard MVP Studio secrets bucket (`passwords.mvpstudio.org`
+bucket on GCE). Once in Rancher you can click the `Kubeconfig file` link to get a `~/.kube/config` file.
 
 ## Directories
 
@@ -23,6 +26,28 @@ The subdirectories in here are:
 cluster and leaves no audit trail. Instead, add, modify, or delete files here. If done correctly we should be able to
 exactly re-create the state of our cluster (in another region for example in case of an outage) but `kubectl apply -f .`
 in the `boostrap` directory followed by `kubectl apply -f .` in the `running` directory.
+
+### Ambassador
+
+All of our cluster routing is handled by [Ambassador](https://www.getambassador.io/). If you like to debug the Amassador
+routing you must first find a running ambassador pod like:
+
+```
+$ kubectl get --namespace=ambassador pods
+NAME                         READY   STATUS    RESTARTS   AGE
+ambassador-8db4cb58d-gsmjj   1/1     Running   0          34d
+ambassador-8db4cb58d-t9q2b   1/1     Running   0          34d
+ambassador-8db4cb58d-tfqnn   1/1     Running   0          34d
+```
+
+Obviously the actual pod names will likely be different when you run this. Once you have the list of pods select one and
+set up port forwarding:
+
+```
+$ kubectl --namespace=ambassador port-forward ambassador-8db4cb58d-gsmjj 8877 8877
+```
+
+and you can then point your browser to `http://localhost:8877/ambassador/v0/diag/` to see diagnostics.
 
 
 ## Hardware Configuration
@@ -46,7 +71,8 @@ in the `boostrap` directory followed by `kubectl apply -f .` in the `running` di
 172.19.250.26
 
 #### External static ip
-50.201.1.196
+50.201.1.196 -- this is the VPN and should only be used for the VPN
+50.201.1.197 -- this is the HAProxy instance and all traffic that hits this will go to Ambassador
 
 #### users
 - mvp (sudoer)
