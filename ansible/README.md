@@ -11,5 +11,5 @@ required.
 To configure the nodes run:
 
 ```
-ansible -i inventory.yml -k playbook.yml
+ansible -i inventory.yml -k -K playbook.yml
 ```
