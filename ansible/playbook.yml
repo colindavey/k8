@@ -1,0 +1,9 @@
+---
+- hosts: minions
+  tasks:
+     - name: Install packages
+       apt:
+          name:
+             - open-iscsi
+          state: present
+       become: yes
