@@ -11,5 +11,10 @@ required.
 To configure the nodes run:
 
 ```
-ansible -i inventory.yml -k -K playbook.yml
+ansible-playbook -i inventory.yml --ask-vault-pass playbook.yml
 ```
+
+The password for the [Ansible vault](https://docs.ansible.com/ansible/latest/user_guide/vault.html) is in the Google
+password bucket (`gs://passwords.mvpstudio.org`) in file `continu-k8.txt`. This allows us to decrypt the `vault.yml`
+file which contains the passwords to log into each node, the password for the iSCSI targets, etc. This way you only
+need to type a single password. If you need to update that file you can run `ansible-vault edit vault.yml`.

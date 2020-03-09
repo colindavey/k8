@@ -1,4 +1,7 @@
 all:
+   vars:
+      ansible_user: mvp
+      ansible_password: "{{ ssh_pass }}"
    children:
       minions:
          hosts:
@@ -12,8 +15,6 @@ all:
             node3:
                ansible_host: 172.19.250.26
                iscsi_target: iqn.2001-05.com.equallogic:0-8a0906-29b870207-e5343ae56b65e3b7-kuber3
-         vars:
-            ansible_user: mvp
       master:
          hosts:
             master1:
