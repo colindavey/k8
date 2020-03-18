@@ -17,8 +17,8 @@
           portal: 172.19.250.245
           auto_node_startup: yes
           login: yes
-          # node_auth: CHAP
-          # node_user: mvp
-          # node_pass: "{{ iscsi_pass }}"
+          node_auth: CHAP
+          node_user: MVP_CHAP
+          node_pass: "{{ iscsi_pass }}"
           target: "{{ iscsi_target }}"
        become: yes
