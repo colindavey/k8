@@ -12,7 +12,14 @@ And we then modified the `yml` files in there to fit our needs. The modified fil
 
 Per [the Rook documentation](https://rook.io/docs/rook/master/ceph-cluster-crd.html), our `dataDirHostPath`, which
 is set to `/var/lib/rook`, holds keys, configs, etc. so if you tear down the cluster and restart it you must
-delete this directory too.
+delete this directory too. There's [other
+documentation](https://rook.io/docs/rook/v1.2/ceph-teardown.html#delete-the-data-on-hosts) about other things that you
+might need to do in order to restart a cluster depending on how far the initial setup got. If you need to cleanup a
+bunch of hosts you can change to the `ansible` directory in this repo and run:
+
+```
+ansible-playbook -i inventory.yml  --ask-vault-pass --ask-become-pass ceph-cleanup/cleanup.yml
+```
 
 # Starting
 

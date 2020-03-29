@@ -24,7 +24,7 @@ spec:
   storage:
     useAllNodes: true
     useAllDevices: false
-    # Our iSCSI targets are all mounted at /dev/sdb
-    devices:
-       - name: sdb
+    # Our iSCSI targets aren't consistently mounted to the same /dev/sdX path so we have to find them
+    # via regex
+    devicePathFilter: '^/dev/disk/by-path/ip-172\.19\..*com.equallogic.*'
 
