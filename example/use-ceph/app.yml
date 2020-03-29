@@ -1,0 +1,34 @@
+---
+# A super simple "app" that mounts my persistent volume
+# and then keeps appending the current date/time to a file
+# in there. You can then kubectl exec into the container to
+# view the file
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ceph-example
+  labels:
+    app: ceph-example
+spec:
+  selector:
+    matchLabels:
+      app: ceph-example
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: ceph-example
+    spec:
+      containers:
+      - image: debian:buster
+        name: ceph-example
+        volumeMounts:
+        - name: example-pv
+          mountPath: /pv
+        command: ['/bin/bash', '-c', 'while true; do date >> /pv/dates; sleep 10; done']
+      volumes:
+      - name: example-pv
+        persistentVolumeClaim:
+          claimName: ceph-example
+
