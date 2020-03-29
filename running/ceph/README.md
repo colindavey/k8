@@ -14,4 +14,19 @@ Per [the Rook documentation](https://rook.io/docs/rook/master/ceph-cluster-crd.h
 is set to `/var/lib/rook`, holds keys, configs, etc. so if you tear down the cluster and restart it you must
 delete this directory too.
 
+# Status
 
+To view the status of the Rook cluster you can first set up port forwarding to the dashboard service:
+
+```
+kubectl -n rook-ceph port-forward service/rook-ceph-mgr-dashboard 7000
+```
+
+then point your browser at `http://localhost:7000/#/login`. To get the login credentials you can run:
+
+```
+kubectl -n rook-ceph get secret rook-ceph-dashboard-password \
+    -o jsonpath="{['data']['password']}" | base64 --decode && echo
+```
+
+The username is `admin` and the above command will give you the password.
