@@ -21,6 +21,13 @@ bunch of hosts you can change to the `ansible` directory in this repo and run:
 ansible-playbook -i inventory.yml  --ask-vault-pass --ask-become-pass ceph-cleanup/cleanup.yml
 ```
 
+Also, there is a known bug with our version of Rook that cause cause an attempt to delete everything to fail waiting on
+a "terminator". If you run a `kubectl delete -f .` and see that the final delete of the namespace is hung run:
+
+```
+kubectl patch crd cephclusters.ceph.rook.io -p '{"metadata":{"finalizers": []}}' --type=merge
+```
+
 # Starting
 
 To start the cluster you need to start things in order. First:
