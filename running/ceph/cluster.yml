@@ -1,0 +1,30 @@
+---
+# Our cluster setup. This was copied from
+# https://rook.io/docs/rook/v1.2/ceph-cluster-crd.html and then modified (by
+# specifying the correct devices to use, enabling the dashboard, etc.) rather
+# than starting with the example in their github examples as that was 99%
+# irrelevant stuff that was commented out.
+apiVersion: ceph.rook.io/v1
+kind: CephCluster
+metadata:
+  name: rook-ceph
+  namespace: rook-ceph
+spec:
+  cephVersion:
+    # see the "Cluster Settings" section below for more details on which image of ceph to run
+    image: ceph/ceph:v14.2.7
+    allowUnsupported: false
+  dataDirHostPath: /var/lib/rook
+  mon:
+    count: 3
+    allowMultiplePerNode: true
+  dashboard:
+    enabled: true
+    ssl: false
+  storage:
+    useAllNodes: true
+    useAllDevices: false
+    # Our iSCSI targets are all mounted at /dev/sdb
+    devices:
+       - name: sdb
+
