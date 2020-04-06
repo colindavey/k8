@@ -1,0 +1,24 @@
+---
+- hosts: minions
+  vars:
+     - ansible_become_password: "{{ sudo_pass }}"
+  vars_files:
+     - vault.yml
+  tasks:
+     - name: Install packages
+       apt:
+          name:
+             - open-iscsi
+          state: present
+       become: yes
+     - name: Make iSCSI connections
+       open_iscsi:
+          discover: yes
+          portal: 172.19.250.245
+          auto_node_startup: yes
+          login: yes
+          # node_auth: CHAP
+          # node_user: mvp
+          # node_pass: "{{ iscsi_pass }}"
+          target: "{{ iscsi_target }}"
+       become: yes

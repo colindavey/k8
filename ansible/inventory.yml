@@ -1,0 +1,23 @@
+all:
+   vars:
+      ansible_user: mvp
+      ansible_password: "{{ ssh_pass }}"
+   children:
+      minions:
+         hosts:
+            # List of all our minion (worker) nodes and the iScsi target to which they connect in order to mount storage.
+            node1:
+               ansible_host: 172.19.250.20
+               iscsi_target: iqn.2001-05.com.equallogic:0-8a0906-26b870207-5ec43ae56b05e3b7-kuber1
+            node2:
+               ansible_host: 172.19.250.24
+               iscsi_target: iqn.2001-05.com.equallogic:0-8a0906-284870207-d6e43ae56b35e3b7-kuber2
+            node3:
+               ansible_host: 172.19.250.26
+               iscsi_target: iqn.2001-05.com.equallogic:0-8a0906-29b870207-e5343ae56b65e3b7-kuber3
+      master:
+         hosts:
+            master1:
+               ansible_host: 172.19.250.22
+         vars:
+            ansible_user: mvp
