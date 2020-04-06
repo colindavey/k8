@@ -1,0 +1,20 @@
+---
+# Cleans up a Ceph cluster. See [Rook ceph README](../running/ceph/README.md)
+- hosts: minions
+  become: yes
+  tasks:
+     - name: Install gdisk if necessary
+       apt:
+          name:
+             - gdisk
+          state: present
+     - name: Remove /var/lib/rook
+       file:
+          path: /var/lib/rook
+          state: absent
+     - name: Clean up old OSD setups
+       shell: sgdisk --zap-all $(realpath /dev/disk/by-path/ip-172*)
+     - name: More OSD cleanup
+       shell: ls /dev/mapper/ceph-* | xargs -I% -- dmsetup remove %
+     - name: Remove all /dev/ceph paths
+       shell: rm -rf /dev/ceph-*
