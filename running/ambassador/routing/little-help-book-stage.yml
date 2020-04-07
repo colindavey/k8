@@ -1,0 +1,11 @@
+---
+apiVersion: getambassador.io/v2
+kind: Mapping
+metadata:
+   namespace: ambassador
+   name: little-help-book-stage-mapping
+spec:
+   host: littlehelpbook.stage.apps.mvpstudio.org
+   prefix: /
+   # rewrite: /weatherforecast
+   service: little-help-book-web.little-help-book-stage
