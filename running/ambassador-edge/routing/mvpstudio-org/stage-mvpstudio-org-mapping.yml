@@ -1,0 +1,20 @@
+---
+apiVersion: getambassador.io/v2
+kind: Mapping
+metadata:
+  name: stage-mvpstudio-org
+  namespace: ambassador-edge
+spec:
+  host: stage.mvpstudio.org
+  prefix: /
+  service: mvpstudio-web.stage-mvpstudio-web
+---
+apiVersion: getambassador.io/v2
+kind: Host
+metadata:
+  name: stage-mvpstudio-org
+  namespace: ambassador-edge
+spec:
+  hostname: stage.mvpstudio.org
+  acmeProvider:
+    email: mvpstudiooregon@gmail.com

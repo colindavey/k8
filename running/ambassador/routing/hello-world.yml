@@ -1,9 +1,0 @@
----
-apiVersion: getambassador.io/v1
-kind: Mapping
-metadata:
-  name: hello-world
-  namespace: ambassador
-spec:
-  prefix: /hello-world
-  service: nginx.hello-world
