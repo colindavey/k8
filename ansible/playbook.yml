@@ -9,6 +9,9 @@
        apt:
           name:
              - open-iscsi
+             # Undocumented but per https://github.com/rook/rook/issues/2591 this appears
+             # to be necessary.
+             - lvm2
           state: present
        become: yes
      - name: Make iSCSI connections
