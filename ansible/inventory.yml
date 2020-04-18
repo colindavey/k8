@@ -24,6 +24,6 @@ all:
       master:
          hosts:
             master1:
-               ansible_host: 172.19.250.22
+               ansible_host: 100.64.0.1
          vars:
             ansible_user: mvp
