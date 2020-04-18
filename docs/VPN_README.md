@@ -12,37 +12,47 @@ without help from Continu. To this end we also have a simple [WireGuard](https:/
 
 # The WireGuard VPN
 
-To access the [WireGuard](https://www.wireguard.com/) VPN users must first install WireGuard. To add a new user we then
-run the [add_user.py](../wireguard/add_user.py) script. That script spits out a WireGuard configuration file that can be
-imported into WireGuard (how exactly depends on the OS and which version you installed but it's pretty obvious - on
-Linux it can be used via `wg-quick up ./wg-mvp.conf`). It also updates the [WireGuard configuration Jinja 2
-template](../ansible/templates/wg0.conf) which can then be applied to the master server by somebody already on the VPN
-via:
+To access the [WireGuard](https://www.wireguard.com/) VPN users must first [install
+WireGuard](https://www.wireguard.com/install/). Users then use WireGuard to generate a public and a private key. They
+then generate a file like:
 
 ```
-ansible-playbook -i inventory.yml -l master --ask-vault-pass playbook.yml
+[Interface]
+Address = 100.65.0.XXX/10
+PrivateKey = <private key here>
+ListenPort = 51820
+
+[Peer]
+Endpoint = 50.201.1.196:51820
+PublicKey = zEEB7K7+iY4OOZTYffQI7s0xsC2bq6aO+B6RTs6BzVo=
+AllowedIPs = 100.64.0.1/32
+PersistentKeepalive = 25
 ```
 
-Note that our playbook assumes you're on the OpenVpn not the WireGuard one. If you want to run it while on the WireGuard
-VPN you need to change the following in inventory.yml:
+
+There's only 2 lines that need changing:
+
+1. The `XXX` after `Address` has to be changed to be **unique** across all MVP Studio users. You can figure out what the
+   next free address is by looking at [the server config file](../ansible/templates/wg0.conf).
+2. Replace `<private key here>` with your actual private key.
+
+We then need to install that user's public key on the server. To do that edit [the server config
+file](../ansible/templates/wg0.conf) adding a new `[Peer]` section adding the user's public key and the unique IP
+address they were assigned in step (1) above. Be sure to add a comment indicating what actual human the public key
+belongs to. Finally, to apply the changed config use Ansible:
+
 
 ```
-      master:
-         hosts:
-            master1:
-               ansible_host: 172.19.250.22
+ansible-playbook -i inventory_wg.yml -l master --tags=wg_config --ask-vault-pass playbook.yml
 ```
 
-to:
+You can find the password for the Ansible vault in the `continu-k8.txt` file in our secrets bucket
+(`passwords.mvpstudio.org` bucket on GCE).
 
-```
-      master:
-         hosts:
-            master1:
-               ansible_host: 100.64.0.1
-```
+Note that `inventory_wg.yml` is the same as `inventory.yml` but the IP addresses are the addresses that show up in the
+WireGuard tunnel. If you are on the OpenVpn tunnel use `inventory.yml` instead.
 
-to use the WireGuard IP Address for the server. Finally, create a pull request to check in the modified `wg0.conf` file.
+Finally, create a pull request to check in the modified `wg0.conf` file.
 
 The master server now has IP address 100.64.0.1 on the WireGuard network.
 

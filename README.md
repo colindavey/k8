@@ -15,9 +15,17 @@ The master node is also running the main rancher container:
 https://172.19.250.22:8443/
 ```
 
-The credentials to access Rancher can be found in the standard MVP Studio secrets bucket (`passwords.mvpstudio.org`
-bucket on GCE). Once in Rancher you can click the `Kubeconfig file` link to get a `~/.kube/config` file. You can also
-find the ssh credentials for the nodes in that bucket in the `continu-k8.txt` file.
+Authentication is via github so log in via github using any github user that is part of the MVPStudio organization. Once
+you've logged in an administrator will add you to our cluster and then whatever projects you are working on. Once in
+Rancher you can click the `Kubeconfig file` link to get a `~/.kube/config` file. Note that you'll have to edit the
+server line `server: https://172.19.250.22:8443/k8s/clusters/c-pv74p` changing the IP address to `100.64.0.1` (that's
+the address of the server in the WireGuard tunnel).
+
+### Admin Access
+
+If necessary, the admin credentials to access Rancher can be found in the standard MVP Studio secrets bucket
+(`passwords.mvpstudio.org` bucket on GCE).  You can also find the ssh credentials for the nodes in that bucket in the
+`continu-k8.txt` file.
 
 ## Directories
 
