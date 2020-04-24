@@ -25,3 +25,45 @@
           node_pass: "{{ iscsi_pass }}"
           target: "{{ iscsi_target }}"
        become: yes
+- hosts: master1
+  vars:
+     - ansible_become_password: "{{ sudo_pass }}"
+  vars_files:
+     - vault.yml
+  tasks:
+     - name: Add wireguard apt repo
+       apt_repository:
+          state: present
+          filename: unstable-wireguard
+          repo: deb http://deb.debian.org/debian/ unstable main
+          update_cache: no
+       become: yes
+     - name: Ensure we do not install anything but wireguard from backports
+       copy:
+          dest: /etc/apt/preferences.d/limit-unstable
+          content: |
+             Package: *
+             Pin: release a=unstable
+             Pin-Priority: 90
+       become: yes
+     - name: Install wireguard
+       apt:
+          name:
+             - wireguard
+          cache_valid_time: 3600
+          update_cache: yes
+          state: present
+       become: yes
+     - name: configure wireguard
+       template:
+          src: wg0.conf
+          dest: /etc/wireguard/wg0.conf
+       tags:
+          - wg_config
+       become: yes
+     # Have to use command here because the systemd module will fail as wg-quick@wg0 isn't a real unit
+     - name: start the wireguard service
+       command: systemctl restart wg-quick@wg0
+       tags:
+          - wg_config
+       become: yes

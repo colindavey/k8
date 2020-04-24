@@ -1,8 +1,67 @@
-# VPN
+# VPNs Plural
 
-In order to access the cluster you must first connect to the VPN. To do that you will need Continu to set up a username,
-password, and a variety of certificates and keys. They will general provide all this information to you on a thumb drive
-or similar. Once you have the drive you'll need to configure some [OpenVpn](https://openvpn.net/) compatible client.
+We have 2 VPNs. The first is an [OpenVpn](https://openvpn.net/) created by Continu for us. This gives us direct access
+to all the machines in the cluster and we can ssh to individual nodes, etc. This is nice but it has a few downsides:
+
+* Adding additional people to the VPN requires talking to Continu to set up certs and things.
+* It provides a lot of access including the ability to send packets to individual nodes!
+
+What we really want is the above VPN for MVP Studio admins but for regular users who just need to run `kubectl` we want
+a VPN that limits their access to just the master server and we'd like to be able to add and remove new users easily and
+without help from Continu. To this end we also have a simple [WireGuard](https://www.wireguard.com/) VPN.
+
+# The WireGuard VPN
+
+To access the [WireGuard](https://www.wireguard.com/) VPN users must first [install
+WireGuard](https://www.wireguard.com/install/). Users then use WireGuard to generate a public and a private key. They
+then generate a file like:
+
+```
+[Interface]
+Address = 100.65.0.XXX/10
+PrivateKey = <private key here>
+ListenPort = 51820
+
+[Peer]
+Endpoint = 50.201.1.196:51820
+PublicKey = zEEB7K7+iY4OOZTYffQI7s0xsC2bq6aO+B6RTs6BzVo=
+AllowedIPs = 100.64.0.1/32
+PersistentKeepalive = 25
+```
+
+
+There's only 2 lines that need changing:
+
+1. The `XXX` after `Address` has to be changed to be **unique** across all MVP Studio users. You can figure out what the
+   next free address is by looking at [the server config file](../ansible/templates/wg0.conf).
+2. Replace `<private key here>` with your actual private key.
+
+We then need to install that user's public key on the server. To do that edit [the server config
+file](../ansible/templates/wg0.conf) adding a new `[Peer]` section adding the user's public key and the unique IP
+address they were assigned in step (1) above. Be sure to add a comment indicating what actual human the public key
+belongs to. Finally, to apply the changed config use Ansible:
+
+
+```
+ansible-playbook -i inventory_wg.yml -l master --tags=wg_config --ask-vault-pass playbook.yml
+```
+
+You can find the password for the Ansible vault in the `continu-k8.txt` file in our secrets bucket
+(`passwords.mvpstudio.org` bucket on GCE).
+
+Note that `inventory_wg.yml` is the same as `inventory.yml` but the IP addresses are the addresses that show up in the
+WireGuard tunnel. If you are on the OpenVpn tunnel use `inventory.yml` instead.
+
+Finally, create a pull request to check in the modified `wg0.conf` file.
+
+The master server now has IP address 100.64.0.1 on the WireGuard network.
+
+# The OpenVpn VPN
+
+To connect to the "full VPN" that gives you access to not only the master server but also all the minions you will need
+Continu to set up a username, password, and a variety of certificates and keys. They will general provide all this
+information to you on a thumb drive or similar. Once you have the drive you'll need to configure some
+[OpenVpn](https://openvpn.net/) compatible client.
 
 ## Linux
 
