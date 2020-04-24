@@ -1,0 +1,21 @@
+---
+apiVersion: getambassador.io/v2
+kind: Mapping
+metadata:
+  name: little-help-book-stage-mapping
+  namespace: ambassador-edge
+spec:
+  host: littlehelpbook.stage.apps.mvpstudio.org
+  prefix: /
+  # rewrite: /weatherforecast
+  service: little-help-book-web.little-help-book-stage
+---
+apiVersion: getambassador.io/v2
+kind: Host
+metadata:
+  name: little-help-book-stage-host
+  namespace: ambassador-edge
+spec:
+  hostname: littlehelpbook.stage.apps.mvpstudio.org
+  acmeProvider:
+    email: mvpstudiooregon@gmail.com
