@@ -1,0 +1,40 @@
+---
+apiVersion: getambassador.io/v2
+kind: Mapping
+metadata:
+  name: openeugene-prod-mvp-mapping
+  namespace: ambassador-edge
+spec:
+  host: openeugene.prod.apps.mvpstudio.org
+  prefix: /
+  service: openeugene-marketing-web.openeugene-marketing-prod
+---
+apiVersion: getambassador.io/v2
+kind: Host
+metadata:
+  name: openeugene-prod-mvp-host
+  namespace: ambassador-edge
+spec:
+  hostname: openeugene.prod.apps.mvpstudio.org
+  acmeProvider:
+    email: mvpstudiooregon@gmail.com
+---
+apiVersion: getambassador.io/v2
+kind: Mapping
+metadata:
+  name: openeugene-prod-mapping
+  namespace: ambassador-edge
+spec:
+  host: openeugene.org
+  prefix: /
+  service: openeugene-marketing-web.openeugene-marketing-prod
+---
+apiVersion: getambassador.io/v2
+kind: Host
+metadata:
+  name: openeugene-prod-host
+  namespace: ambassador-edge
+spec:
+  hostname: openeugene.org
+  acmeProvider:
+    email: mvpstudiooregon@gmail.com
