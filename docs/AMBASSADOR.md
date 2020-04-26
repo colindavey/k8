@@ -31,7 +31,7 @@ Installation instructions for the cli can be found
 [here](https://www.getambassador.io/docs/latest/topics/using/edgectl/edge-control/#installing-edge-control).
 
 
-Then run the following to naviate to the console:
+Then run the following to navigate to the console:
 ```
 edgectl login --namespace=ambassador-edge 172.19.250.20:30037 
 ```
