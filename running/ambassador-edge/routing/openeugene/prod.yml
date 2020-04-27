@@ -50,3 +50,13 @@ spec:
   hostname: openeugene.org
   acmeProvider:
     email: mvpstudiooregon@gmail.com
+---
+apiVersion: getambassador.io/v2
+kind: Host
+metadata:
+  name: openeugene-prod-www-host
+  namespace: ambassador-edge
+spec:
+  hostname: www.openeugene.org
+  acmeProvider:
+    email: mvpstudiooregon@gmail.com
