@@ -36,9 +36,9 @@ metadata:
   name: eugene-food-scene-www-dns-mapping
   namespace: ambassador-edge
 spec:
-  host: www.eugenefoodscene.org
+  host: www.eugenefoodscene.com
   prefix: /
-  service: eugenefoodscene.org
+  service: eugenefoodscene.com
   host_redirect: true
 ---
 apiVersion: getambassador.io/v2
@@ -47,6 +47,16 @@ metadata:
   name: eugene-food-scene-dns-host
   namespace: ambassador-edge
 spec:
-  hostname: eugenefoodscene.org
+  hostname: eugenefoodscene.com
+  acmeProvider:
+    email: mvpstudiooregon@gmail.com
+---
+apiVersion: getambassador.io/v2
+kind: Host
+metadata:
+  name: eugene-food-scene-dns-www-host
+  namespace: ambassador-edge
+spec:
+  hostname: www.eugenefoodscene.com
   acmeProvider:
     email: mvpstudiooregon@gmail.com
