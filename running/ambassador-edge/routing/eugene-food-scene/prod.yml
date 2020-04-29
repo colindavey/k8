@@ -8,6 +8,7 @@ spec:
   host: eugenefoodscene.prod.apps.mvpstudio.org
   prefix: /
   service: eugene-food-scene-web.eugene-food-scene-prod
+  use_websocket: true
 ---
 apiVersion: getambassador.io/v2
 kind: Host
@@ -28,6 +29,7 @@ spec:
   host: eugenefoodscene.com
   prefix: /
   service: eugene-food-scene-web.eugene-food-scene-prod
+  use_websocket: true
 ---
 # Redirect www to non-www
 apiVersion: getambassador.io/v2
