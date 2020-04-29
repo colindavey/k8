@@ -13,8 +13,10 @@ without help from Continu. To this end we also have a simple [WireGuard](https:/
 # The WireGuard VPN
 
 To access the [WireGuard](https://www.wireguard.com/) VPN users must first [install
-WireGuard](https://www.wireguard.com/install/). Users then use WireGuard to generate a public and a private key. They
-then generate a file like:
+WireGuard](https://www.wireguard.com/install/). Users then use WireGuard to generate a public and a private key. Keys
+can be generated [as per the docs](https://www.wireguard.com/quickstart/#key-generation) though Windows and OSX clients
+also have GUI ways to do this (TODO: users of these platforms please add details and screen shots). Once keys are
+generated users then generate a file like:
 
 ```
 [Interface]
@@ -55,6 +57,13 @@ WireGuard tunnel. If you are on the OpenVpn tunnel use `inventory.yml` instead.
 Finally, create a pull request to check in the modified `wg0.conf` file.
 
 The master server now has IP address 100.64.0.1 on the WireGuard network.
+
+Users should be able to test their WireGuard configuration as follows:
+
+1. Bring up the interface: `wg-quick up /path/to/config.conf` where `/path/to/config.conf` is the client config file
+   described above. As above, Windows and OSX offer GUI clients for this if desired.
+2. Test the connection to the master via `ping 100.64.0.1` - you should get timely responses.
+3. When down, break down the tunnel using a GUI or `wg-quick down /path/to/config.conf`
 
 # The OpenVpn VPN
 
