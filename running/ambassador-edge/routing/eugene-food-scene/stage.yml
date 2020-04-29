@@ -2,21 +2,20 @@
 apiVersion: getambassador.io/v2
 kind: Mapping
 metadata:
-  name: little-help-book-stage-mapping
+  name: eugene-food-scene-stage-mapping
   namespace: ambassador-edge
 spec:
-  host: littlehelpbook.stage.apps.mvpstudio.org
+  host: eugenefoodscene.stage.apps.mvpstudio.org
   prefix: /
-  # rewrite: /weatherforecast
-  service: little-help-book-web.little-help-book-stage
+  service: eugene-food-scene-web.eugene-food-scene-stage
   use_websocket: true
 ---
 apiVersion: getambassador.io/v2
 kind: Host
 metadata:
-  name: little-help-book-stage-host
+  name: eugene-food-scene-stage-host
   namespace: ambassador-edge
 spec:
-  hostname: littlehelpbook.stage.apps.mvpstudio.org
+  hostname: eugenefoodscene.stage.apps.mvpstudio.org
   acmeProvider:
     email: mvpstudiooregon@gmail.com

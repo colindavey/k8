@@ -2,61 +2,63 @@
 apiVersion: getambassador.io/v2
 kind: Mapping
 metadata:
-  name: openeugene-prod-mvp-mapping
+  name: eugene-food-scene-prod-mapping
   namespace: ambassador-edge
 spec:
-  host: openeugene.prod.apps.mvpstudio.org
+  host: eugenefoodscene.prod.apps.mvpstudio.org
   prefix: /
-  service: openeugene-marketing-web.openeugene-marketing-prod
+  service: eugene-food-scene-web.eugene-food-scene-prod
+  use_websocket: true
 ---
 apiVersion: getambassador.io/v2
 kind: Host
 metadata:
-  name: openeugene-prod-mvp-host
+  name: eugene-food-scene-prod-host
   namespace: ambassador-edge
 spec:
-  hostname: openeugene.prod.apps.mvpstudio.org
+  hostname: eugenefoodscene.prod.apps.mvpstudio.org
   acmeProvider:
     email: mvpstudiooregon@gmail.com
 ---
 apiVersion: getambassador.io/v2
 kind: Mapping
 metadata:
-  name: openeugene-prod-mapping
+  name: eugene-food-scene-bare-dns-mapping
   namespace: ambassador-edge
 spec:
-  host: openeugene.org
+  host: eugenefoodscene.com
   prefix: /
-  service: openeugene-marketing-web.openeugene-marketing-prod
+  service: eugene-food-scene-web.eugene-food-scene-prod
+  use_websocket: true
 ---
 # Redirect www to non-www
 apiVersion: getambassador.io/v2
 kind: Mapping
 metadata:
-  name: openeugene-prod-www-mapping
+  name: eugene-food-scene-www-dns-mapping
   namespace: ambassador-edge
 spec:
-  host: www.openeugene.org
+  host: www.eugenefoodscene.com
   prefix: /
-  service: openeugene.org
+  service: eugenefoodscene.com
   host_redirect: true
 ---
 apiVersion: getambassador.io/v2
 kind: Host
 metadata:
-  name: openeugene-prod-host
+  name: eugene-food-scene-dns-host
   namespace: ambassador-edge
 spec:
-  hostname: openeugene.org
+  hostname: eugenefoodscene.com
   acmeProvider:
     email: mvpstudiooregon@gmail.com
 ---
 apiVersion: getambassador.io/v2
 kind: Host
 metadata:
-  name: openeugene-prod-www-host
+  name: eugene-food-scene-dns-www-host
   namespace: ambassador-edge
 spec:
-  hostname: www.openeugene.org
+  hostname: www.eugenefoodscene.com
   acmeProvider:
     email: mvpstudiooregon@gmail.com

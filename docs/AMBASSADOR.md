@@ -23,6 +23,31 @@ a [Lets Encrypt](https://letsencrypt.org/) cert for that host using an
 Again a good example is 
 [the host resource for the mvpstudio website]((../running/ambassador-edge/routing/mvpstudio-org/prod.yml)).
 
+Note that it takes about 60 seconds for the certificate to get issued for new `Host` records so be patient. Also,
+if there are issues you can directly fetch any Ambassador custom resource definition, including the `Host` records and
+these give you status info, can be deleted, etc. For example:
+
+```
+$ kubectl get -n ambassador-edge host
+NAME                             HOSTNAME                                   STATE   PHASE COMPLETED      PHASE PENDING              AGE
+eugene-food-scene-dns-host       eugenefoodscene.com                        Error   ACMEUserRegistered   ACMECertificateChallenge   23h
+eugene-food-scene-dns-www-host   www.eugenefoodscene.com                    Error   ACMEUserRegistered   ACMECertificateChallenge   8h
+eugene-food-scene-prod-host      eugenefoodscene.prod.apps.mvpstudio.org    Ready                                                   23h
+eugene-food-scene-stage-host     eugenefoodscene.stage.apps.mvpstudio.org   Ready                                                   23h
+little-help-book-stage-host      littlehelpbook.stage.apps.mvpstudio.org    Ready                                                   20d
+openeugene-prod-host             openeugene.org                             Ready                                                   8h
+openeugene-prod-mvp-host         openeugene.prod.apps.mvpstudio.org         Ready                                                   2d3h
+openeugene-prod-www-host         www.openeugene.org                         Ready                                                   8h
+openeugene-stage-mvp-host        openeugene.stage.apps.mvpstudio.org        Ready                                                   2d3h
+prod-mvpstudio-org               mvpstudio.org                              Ready                                                   22d
+prod-www-mvpstudio-org           www.mvpstudio.org                          Ready                                                   21d
+```
+
+Shows all the `Host` records that Ambassador is aware of and their status. Here we can see that the SSL certs for
+`eugenefoodscene.com` and `www.eugenefoodscene.com` had errors. In this particular case that was because there were
+initial DNS errors so the initial SSL cert attempt failed. To fix it you can `kubectl delete -n ambassador-edge host
+eugene-food-scene-dns-host` and then re-apply the file that created the `Host` record to cause it to retry.
+
 
 ## Debugging
 
