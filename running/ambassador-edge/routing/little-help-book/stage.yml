@@ -9,6 +9,7 @@ spec:
   prefix: /
   # rewrite: /weatherforecast
   service: little-help-book-web.little-help-book-stage
+  use_websocket: true
 ---
 apiVersion: getambassador.io/v2
 kind: Host

@@ -8,6 +8,7 @@ spec:
   host: eugenefoodscene.stage.apps.mvpstudio.org
   prefix: /
   service: eugene-food-scene-web.eugene-food-scene-stage
+  use_websocket: true
 ---
 apiVersion: getambassador.io/v2
 kind: Host
