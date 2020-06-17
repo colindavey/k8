@@ -27,7 +27,11 @@ metadata:
 spec:
   host: openeugene.org
   prefix: /
-  service: openeugene-marketing-web.openeugene-marketing-prod
+  # service: openeugene-marketing-web.openeugene-marketing-prod
+  # The following two lines are a temporary redirect to a notion doc instead of the web page.
+  # Remove them and replace with the line commented out line above when reverting.
+  service: www.notion.so/Open-Eugene-f30160bbc8814fbdb4ff7285c751d001
+  host_redirect: true
 ---
 # Redirect www to non-www
 apiVersion: getambassador.io/v2
