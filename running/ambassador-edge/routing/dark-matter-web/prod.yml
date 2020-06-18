@@ -1,0 +1,64 @@
+---
+apiVersion: getambassador.io/v2
+kind: Mapping
+metadata:
+  name: darkmatter-prod-mapping
+  namespace: ambassador-edge
+spec:
+  host: darkmatter.prod.apps.mvpstudio.org
+  prefix: /
+  service: darkmatter-web.darkmatter-prod
+  use_websocket: true
+---
+apiVersion: getambassador.io/v2
+kind: Host
+metadata:
+  name: darkmatter-prod-host
+  namespace: ambassador-edge
+spec:
+  hostname: darkmatter.prod.apps.mvpstudio.org
+  acmeProvider:
+    email: darkmatteroregon@gmail.com
+---
+apiVersion: getambassador.io/v2
+kind: Mapping
+metadata:
+  name: darkmatter-bare-dns-mapping
+  namespace: ambassador-edge
+spec:
+  host: darkmatter.consulting
+  prefix: /
+  service: darkmatter-web.darkmatter-prod
+  use_websocket: true
+---
+# Redirect www to non-www
+apiVersion: getambassador.io/v2
+kind: Mapping
+metadata:
+  name: darkmatter-www-dns-mapping
+  namespace: ambassador-edge
+spec:
+  host: www.darkmatter.consulting
+  prefix: /
+  service: darkmatter.consulting
+  host_redirect: true
+---
+apiVersion: getambassador.io/v2
+kind: Host
+metadata:
+  name: darkmatter-dns-host
+  namespace: ambassador-edge
+spec:
+  hostname: darkmatter.consulting
+  acmeProvider:
+    email: darkmatteroregon@gmail.com
+---
+apiVersion: getambassador.io/v2
+kind: Host
+metadata:
+  name: darkmatter-dns-www-host
+  namespace: ambassador-edge
+spec:
+  hostname: www.darkmatter.consulting
+  acmeProvider:
+    email: darkmatteroregon@gmail.com
