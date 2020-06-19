@@ -40,7 +40,7 @@ metadata:
 spec:
   host: www.darkmatter.consulting
   prefix: /
-  service: darkmatter.consulting
+  service: dark-matter-web.dark-matter-web-prod
   host_redirect: true
 ---
 apiVersion: getambassador.io/v2
