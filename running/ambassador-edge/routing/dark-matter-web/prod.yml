@@ -7,7 +7,7 @@ metadata:
 spec:
   host: darkmatter.prod.apps.mvpstudio.org
   prefix: /
-  service: darkmatter-web.darkmatter-prod
+  service: dark-matter-web.dark-matter-web-prod
   use_websocket: true
 ---
 apiVersion: getambassador.io/v2
@@ -28,7 +28,7 @@ metadata:
 spec:
   host: darkmatter.consulting
   prefix: /
-  service: darkmatter-web.darkmatter-prod
+  service: dark-matter-web.dark-matter-web-prod
   use_websocket: true
 ---
 # Redirect www to non-www
