@@ -15,7 +15,13 @@ without help from Continu. To this end we also have a simple [WireGuard](https:/
 To access the [WireGuard](https://www.wireguard.com/) VPN users must first [install
 WireGuard](https://www.wireguard.com/install/). Users then use WireGuard to generate a public and a private key. Keys
 can be generated [as per the docs](https://www.wireguard.com/quickstart/#key-generation) though Windows and OSX clients
-also have GUI ways to do this (TODO: users of these platforms please add details and screen shots). Once keys are
+also have GUI ways to do this (TODO: users of these platforms please add details and screen shots).
+
+## Windows Client
+Once installed, you can add a new tunnel and create public/private keys by creating a new tunnel. 
+![image](https://user-images.githubusercontent.com/311063/85208559-61b9a500-b2e6-11ea-9c2f-cea6515cb8ff.png)
+
+Once keys are
 generated users then generate a file like:
 
 ```
