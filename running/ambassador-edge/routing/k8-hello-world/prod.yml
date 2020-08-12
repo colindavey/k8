@@ -2,40 +2,39 @@
 apiVersion: getambassador.io/v2
 kind: Mapping
 metadata:
-  name: k8-hello-world-mapping
+  name: hello-world-mapping
   namespace: ambassador-edge
 spec:
-  host: k8-hello-world.mvpstudio.org
+  host: helloworld.mvpstudio.org
   prefix: /
   service: web.hello-world
 ---
 apiVersion: getambassador.io/v2
 kind: Host
 metadata:
-  name: k8-hello-world-host
+  name: hello-world-host
   namespace: ambassador-edge
 spec:
-  hostname: k8-hello-world.mvpstudio.org
+  hostname: helloworld.mvpstudio.org
   acmeProvider:
     email: mvpstudiooregon@gmail.com
 ---
 apiVersion: getambassador.io/v2
 kind: Mapping
 metadata:
-  name: k8-hello-world-prod-mapping
+  name: hello-world-prod-mapping
   namespace: ambassador-edge
 spec:
-  host: k8-hello-world.prod.apps.mvpstudio.org
+  host: helloworld.prod.apps.mvpstudio.org
   prefix: /
   service: web.hello-world
 ---
 apiVersion: getambassador.io/v2
 kind: Host
 metadata:
-  name: k8-hello-world-prod-host
+  name: hello-world-prod-host
   namespace: ambassador-edge
 spec:
-  hostname: k8-hello-world.mvpstudio.org
+  hostname: helloworld.prod.apps.mvpstudio.org
   acmeProvider:
     email: mvpstudiooregon@gmail.com
-
