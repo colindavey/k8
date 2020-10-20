@@ -1,0 +1,59 @@
+apiVersion: getambassador.io/v2
+kind: Mapping
+metadata:
+  name: codechops-mapping
+  namespace: ambassador-edge
+spec:
+  host: codechops.mvpstudio.org
+  prefix: /
+  service: codechops-wp.codechops
+---
+apiVersion: getambassador.io/v2
+kind: Host
+metadata:
+  name: codechops-host
+  namespace: ambassador-edge
+spec:
+  hostname: codechops.mvpstudio.org
+  acmeProvider:
+    email: mvpstudiooregon@gmail.com
+---
+apiVersion: getambassador.io/v2
+kind: Mapping
+metadata:
+  name: codechops-dns-www-mapping
+  namespace: ambassador-edge
+spec:
+  host: www.chops.school
+  prefix: /
+  service: codechops-wp.codechops
+---
+apiVersion: getambassador.io/v2
+kind: Host
+metadata:
+  name: codechops-dns-www-host
+  namespace: ambassador-edge
+spec:
+  hostname: www.chops.school
+  acmeProvider:
+    email: mvpstudiooregon@gmail.com
+---
+apiVersion: getambassador.io/v2
+kind: Mapping
+metadata:
+  name: codechops-dns-mapping
+  namespace: ambassador-edge
+spec:
+  host: chops.school
+  prefix: /
+  service: codechops-wp.codechops
+---
+apiVersion: getambassador.io/v2
+kind: Host
+metadata:
+  name: codechops-dns-host
+  namespace: ambassador-edge
+spec:
+  hostname: chops.school
+  acmeProvider:
+    email: mvpstudiooregon@gmail.com
