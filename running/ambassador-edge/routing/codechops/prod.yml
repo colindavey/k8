@@ -24,7 +24,7 @@ metadata:
   name: codechops-dns-www-mapping
   namespace: ambassador-edge
 spec:
-  host: www.chops.school
+  host: www.codechops.com
   prefix: /
   service: codechops-wp.codechops
 ---
@@ -34,7 +34,7 @@ metadata:
   name: codechops-dns-www-host
   namespace: ambassador-edge
 spec:
-  hostname: www.chops.school
+  hostname: www.codechops.com
   acmeProvider:
     email: mvpstudiooregon@gmail.com
 ---
@@ -44,7 +44,7 @@ metadata:
   name: codechops-dns-mapping
   namespace: ambassador-edge
 spec:
-  host: chops.school
+  host: codechops.com
   prefix: /
   service: codechops-wp.codechops
 ---
@@ -54,6 +54,6 @@ metadata:
   name: codechops-dns-host
   namespace: ambassador-edge
 spec:
-  hostname: chops.school
+  hostname: codechops.com
   acmeProvider:
     email: mvpstudiooregon@gmail.com
