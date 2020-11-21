@@ -1,59 +1,20 @@
 apiVersion: getambassador.io/v2
 kind: Mapping
 metadata:
-  name: codechops-mapping
+  name: fire-refuge-mapping
   namespace: ambassador-edge
 spec:
-  host: codechops.mvpstudio.org
+  host: firerefuge.mvpstudio.org
   prefix: /
-  service: codechops-wp.codechops
+  service: fire-refuge-prod.fire-refuge-web
 ---
 apiVersion: getambassador.io/v2
 kind: Host
 metadata:
-  name: codechops-host
+  name: fire-refuge-host
   namespace: ambassador-edge
 spec:
-  hostname: codechops.mvpstudio.org
+  hostname: firerefuge.mvpstudio.org
   acmeProvider:
     email: mvpstudiooregon@gmail.com
 ---
-apiVersion: getambassador.io/v2
-kind: Mapping
-metadata:
-  name: codechops-dns-www-mapping
-  namespace: ambassador-edge
-spec:
-  host: www.codechops.com
-  prefix: /
-  service: codechops-wp.codechops
----
-apiVersion: getambassador.io/v2
-kind: Host
-metadata:
-  name: codechops-dns-www-host
-  namespace: ambassador-edge
-spec:
-  hostname: www.codechops.com
-  acmeProvider:
-    email: mvpstudiooregon@gmail.com
----
-apiVersion: getambassador.io/v2
-kind: Mapping
-metadata:
-  name: codechops-dns-mapping
-  namespace: ambassador-edge
-spec:
-  host: codechops.com
-  prefix: /
-  service: codechops-wp.codechops
----
-apiVersion: getambassador.io/v2
-kind: Host
-metadata:
-  name: codechops-dns-host
-  namespace: ambassador-edge
-spec:
-  hostname: codechops.com
-  acmeProvider:
-    email: mvpstudiooregon@gmail.com
