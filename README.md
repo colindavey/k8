@@ -4,6 +4,12 @@ We're running all MVP Studio projects in Kubernetes on [Rancher](https://rancher
 This repository contains non-project specific configuration scripts, Kubernetes configuration files, etc. that allow you
 to provision a cluster to work with the rest of the MVP Studio system.
 
+# Quick Start for New Devs
+
+The document below contains some details on how things are set up, our VPNs, etc. However, the most common task we have
+is onboarding a new developer so they can contribute to an MVP Studio project. If that's all you need to do the easiest
+way to start is with the [quick start guide](./docs/QUICK_START.md).
+
 ## Accessing Rancher and Setting up Kubectl
 
 In order to access the cluster you must first VPN into the Continu cluster. See the
