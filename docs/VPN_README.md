@@ -107,20 +107,20 @@ The user can test their WireGuard connection with the following instructions:
 
 ### Command-line
 
--- Activate your connection with the command `wg-quick up /path/to/config.conf` where `/path/to/config.conf` is the 
+* Activate your connection with the command `wg-quick up /path/to/config.conf` where `/path/to/config.conf` is the 
 client configuration file you created in step 4. 
--- Test the connection to the master via `ping 100.64.0.1` - you should get timely responses.
--- Load the page https://100.64.0.1:8443 in your browser - it should load. You might get a warning about the certificate 
+* Test the connection to the master via `ping 100.64.0.1` - you should get timely responses.
+* Load the page https://100.64.0.1:8443 in your browser - it should load. You might get a warning about the certificate 
 not being up to date. You can ignore it. 
--- When done, deactivate the connection with the command `wg-quick down /path/to/config.conf`. 
+* When done, deactivate the connection with the command `wg-quick down /path/to/config.conf`. 
 
 ### GUI
 
--- Select the tunnel for MVP from the list on the left, and then press the `Activate` button. 
--- Test the connection to the master via `ping 100.64.0.1` - you should get timely responses.
--- Load the page https://100.64.0.1:8443 in your browser - it should load. You might get a warning about the certificate 
+* Select the tunnel for MVP from the list on the left, and then press the `Activate` button. 
+* Test the connection to the master via `ping 100.64.0.1` - you should get timely responses.
+* Load the page https://100.64.0.1:8443 in your browser - it should load. You might get a warning about the certificate 
 not being up to date. You can ignore it. 
--- When done, break down the connection by pressing the `Deactivate` button. 
+* When done, break down the connection by pressing the `Deactivate` button. 
 
 # The OpenVpn VPN
 
